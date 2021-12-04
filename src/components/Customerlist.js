@@ -5,6 +5,7 @@ import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
 import Addcustomer from './Addcustomer'; 
 import Editcustomer from './Editcustomer';
+import Addtraining from './Addtraining';
 
 export default function Customerlist(){
 
@@ -40,7 +41,7 @@ export default function Customerlist(){
     }
 
     const editCustomer = (customer, link) => {
-
+        console.log(link)
         fetch(link, {
             method: 'PUT',
             headers: {
@@ -52,8 +53,27 @@ export default function Customerlist(){
         .catch(err => console.error(err))
     }
 
+    const saveTraining = (training) => {
+        console.log(training)
+       
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(training)
+        })
+        .then(res => fetchData())
+        .catch(err => console.error(err))
+    }
+
+
+
 
     const columns = [
+        { headerName: 'Add Training', field: 'links.0.href', cellRendererFramework: function(params) {
+            return <Addtraining saveTraining={saveTraining} customer={params.data} link={params.value} />}
+        }, 
         { headerName: 'Firstname', field: 'firstname', filter: true, sortable: true,
         filterParams: {
             applyMiniFilterWhileTyping: true}},

@@ -18,6 +18,15 @@ export default function Trainings(){
         .then(data => setTrainings(data))
     }
 
+    const deleteTraining = (id) => {
+        console.log(id); 
+        if(window.confirm('Are you sure you want to delete training?')){ 
+            fetch('https://customerrest.herokuapp.com/api/trainings/'+id, {method: 'DELETE'})
+            .then(res => fetchData())
+            .catch(err => console.error(err))
+        }    
+    }
+
 
 
     const columns = [
@@ -26,6 +35,8 @@ export default function Trainings(){
         { headerName: 'Activity', field: 'activity', filter: true, sortable: true },
         { headerName: 'Firstname', field: 'customer.firstname', filter: true, sortable: true },
         { headerName: 'Lastname', field: 'customer.lastname', filter: true, sortable: true },
+        { headerName: 'Delete', field: 'id', 
+        cellRendererFramework: (params) =><div><Button color="error" size="small" onClick={()=>deleteTraining(params.value)}>Delete</Button></div> },
     ]
 
     return(
