@@ -3,7 +3,9 @@ import{ AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
-import { format, compareAsc } from 'date-fns'
+import { format, compareAsc } from 'date-fns'; 
+import Calender from './Calender'; 
+import Charts from './Charts'; 
  
 
 export default function Trainings(){
@@ -28,11 +30,15 @@ export default function Trainings(){
     }
 
 
-
     const columns = [
-        { headerName: 'Date', field: 'date', filter: true, sortable: true },
-        { headerName: 'Duration', field: 'duration', filter: true, sortable: true },
-        { headerName: 'Activity', field: 'activity', filter: true, sortable: true },
+        { headerName: 'Charts', field: 'id', cellRendererFramework: function(params) {return <Charts 
+            trainings={params.data} />}},
+        { headerName: 'Date', field: 'date', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
+            date={params.value} />}},
+        { headerName: 'Duration', field: 'duration', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
+            duration={params.value} />}},
+        { headerName: 'Activity', field: 'activity', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
+            activity={params.value} />} },
         { headerName: 'Firstname', field: 'customer.firstname', filter: true, sortable: true },
         { headerName: 'Lastname', field: 'customer.lastname', filter: true, sortable: true },
         { headerName: 'Delete', field: 'id', 

@@ -9,6 +9,9 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import Trainings from './components/Trainings'; 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Calender from './components/Calender'; 
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import Charts from './components/Charts'; 
 
 
 function App() {
@@ -31,7 +34,7 @@ function App() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           GYM INFO
+           PERSONAL TRAINER
           </Typography>
         </Toolbar>
       </AppBar>
@@ -41,11 +44,13 @@ function App() {
         <PersonIcon fontSize="medium" />
         <Tab value="two" label="Trainings"/>
         <DirectionsRunIcon fontSize="medium" />
+        <Tab value="three" label= "Calender" />
+        <CalendarTodayIcon fontSize="medium" />
       </ Tabs>
         {value === 'one' && <div>{<Customerlist />}</div>}
-        {value === 'two'&& <div>{<Trainings />}</div>}
+        {value === 'two' && <div>{<Trainings />}</div>}
+        {value === 'three' && <div>{<Calender />}</div>}
       </div>
-      <Customerlist />
     </div>
   );
 }
