@@ -3,9 +3,8 @@ import{ AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
-import { format, compareAsc } from 'date-fns'; 
-import Calender from './Calender'; 
-import Charts from './Charts'; 
+import format from 'date-fns/format'; 
+
  
 
 export default function Trainings(){
@@ -18,6 +17,7 @@ export default function Trainings(){
         fetch('https://customerrest.herokuapp.com/gettrainings')
         .then(response => response.json())
         .then(data => setTrainings(data))
+    
     }
 
     const deleteTraining = (id) => {
@@ -31,14 +31,9 @@ export default function Trainings(){
 
 
     const columns = [
-        { headerName: 'Charts', field: 'id', cellRendererFramework: function(params) {return <Charts 
-            trainings={params.data} />}},
-        { headerName: 'Date', field: 'date', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
-            date={params.value} />}},
-        { headerName: 'Duration', field: 'duration', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
-            duration={params.value} />}},
-        { headerName: 'Activity', field: 'activity', filter: true, sortable: true, cellRendererFramework: function(params) {return <Calender 
-            activity={params.value} />} },
+        { headerName: 'Date', field: 'date', filter: true, sortable: true, cellRendererFramework: params => format(new Date(params.value), 'MM/dd/yyyy HH:mm') },
+        { headerName: 'Duration', field: 'duration', filter: true, sortable: true },
+        { headerName: 'Activity', field: 'activity', filter: true, sortable: true },
         { headerName: 'Firstname', field: 'customer.firstname', filter: true, sortable: true },
         { headerName: 'Lastname', field: 'customer.lastname', filter: true, sortable: true },
         { headerName: 'Delete', field: 'id', 

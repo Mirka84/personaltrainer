@@ -46,10 +46,12 @@ function App() {
         <DirectionsRunIcon fontSize="medium" />
         <Tab value="three" label= "Calender" />
         <CalendarTodayIcon fontSize="medium" />
+        <Tab value="four" label= "Charts" />
       </ Tabs>
         {value === 'one' && <div>{<Customerlist />}</div>}
         {value === 'two' && <div>{<Trainings />}</div>}
         {value === 'three' && <div>{<Calender />}</div>}
+        {value === 'four' && <div>{<Charts />}</div>}
       </div>
     </div>
   );

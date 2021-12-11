@@ -5,6 +5,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import minutesToHours from 'date-fns/minutesToHours'; 
 
 const locales={
     "en-US": require("date-fns/locale/en-US")
@@ -19,17 +20,27 @@ const localizer = dateFnsLocalizer({
 })
 
 
-export default function Calender(props) {
+export default function Calender() {
 
-    const [training, setTraining]=useState({activity: '', start: '', end: ''}); 
-    const [events, setEvents]=useState([]); 
+    const [trainings, setTrainings]=useState([]);
 
-    useEffect(()=> saveEvents(), []);
-     
+    useEffect(()=> fetchData(), []);
 
-    const saveEvents = () => {
-        setEvents([...events, { activity: props.activity, start: props.start, end: props.end}]);  
+    const fetchData = ()=> {
+        fetch('https://customerrest.herokuapp.com/gettrainings')
+        .then(response => response.json())
+        .then(data => setTrainings(data))
     }
+
+     
+    const events = trainings.map((events) => {
+        return {
+            title: events.activity, 
+            duration: minutesToHours(events.duration),
+            start: format(new Date(events.date), 'MM/dd/yyyy HH:mm'),
+            end: format(new Date(events.date), 'MM/dd/yyyy HH:mm')
+        }  
+    })
 
 return (
     <div>
